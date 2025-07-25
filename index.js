@@ -8,6 +8,9 @@ import bootstrap from './src/app.controller.js';
 import express from 'express';
 import chalk from 'chalk';
 
+// deleteExpiredOTPs
+import deleteExpiredOTPs from './src/modules/auth/service/deletingExpiredOTP.service.js';
+
 const app = express()
 const port = process.env.PORT || 5000 ;
 

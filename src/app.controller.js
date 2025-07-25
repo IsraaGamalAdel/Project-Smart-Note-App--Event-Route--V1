@@ -1,5 +1,3 @@
-//path
-import path from 'node:path';
 //limiter
 import rateLimit from 'express-rate-limit';
 //helmet
@@ -10,8 +8,13 @@ import cors from 'cors'; // upload Deployment
 import morgan from 'morgan';
 // DB connection
 import connectDB from './DB/connection.js';
+// utils error
+import { globalErrorHandling } from './utils/response/error.response.js';
 // controller
 import authController from './modules/auth/auth.controller.js';
+import usersController from './modules/users/user.controller.js';
+
+
 
 
 // API
@@ -31,6 +34,9 @@ const bootstrap = async (app , express) => {
     app.use(helmet());
     app.use(cors());
     app.use(limiter);
+    
+    // upload file size
+    app.use(express.urlencoded({ limit: '100mb', extended: true }));
 
     // body parser express
     app.use(express.json());
@@ -43,7 +49,10 @@ const bootstrap = async (app , express) => {
     });
 
     app.use(`${url}/auth`, authController);
+    app.use(`${url}/users` , usersController);
 
+
+    app.use(globalErrorHandling);
 
     // in-valid routing (All routing)
     app.all('*' , (req , res , next) => {
