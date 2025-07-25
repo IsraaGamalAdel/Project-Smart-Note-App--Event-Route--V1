@@ -33,8 +33,16 @@ router.patch('/profile/password',
 );
 
 // Email
-router.patch('/profile/email' , validation(validators.updateEmailValidation) ,authentication() , userService.UpdateEmail);
-router.patch('/profile/replace-email' , validation(validators.replaceEmailValidation) ,authentication() , userService.replaceEmail);
+router.patch('/profile/email' , 
+    validation(validators.updateEmailValidation) ,
+    authentication() , 
+    userService.UpdateEmail
+);
+router.patch('/profile/replace-email' , 
+    validation(validators.replaceEmailValidation) ,
+    authentication() , 
+    userService.replaceEmail
+);
 
 // Images
 router.patch('/profile/image', 
@@ -62,6 +70,7 @@ router.delete('/profile/delete_images/cover' ,
     userService.deleteCoverImages
 );
 
+// Identity images local
 router.patch('/upload-profile-pic',authentication() , 
     uploadDiskFile("users/profile/identity" , 
         [...fileValidationTypes.image , ...fileValidationTypes.document], 
