@@ -5,7 +5,7 @@ import { userModel } from "../../../DB/model/User.model.js";
 import { errorAsyncHandler } from "../../../utils/response/error.response.js";
 import { successResponse } from './../../../utils/response/success.response.js';
 import { emailEvent } from './../../../utils/events/sendEmailEvent.js';
-// Middleware
+// Middleware time code otp (email / forgot password / update email)
 import { timeCodeOTP } from './../../../middleware/timeCode.middleware.js';
 
 

@@ -1,5 +1,7 @@
 import joi from 'joi';
+// Types mongoose
 import { Types } from 'mongoose';
+// GenderTypes - user model
 import { genderTypes } from '../DB/model/User.model.js';
 
 
@@ -42,7 +44,10 @@ export const generalFields = {
     fileObject,
     files: joi.object(fileObject),
     address: joi.string().pattern(new RegExp(/^[a-zA-Z\u0621-\u064Aء-ئ0-9][^#&<>\"~;$^%{}?]{2,100}$/)),
-    description: joi.string().min(2).max(1000).trim()
+    // description deleted one
+    description: joi.string().min(2).max(1000).trim(),
+    content: joi.string().min(2).max(2000).trim(),
+    title: joi.string().min(2).max(50).trim(),
 }; 
 
 
@@ -75,8 +80,8 @@ export const validationGraphQL = async ({scheme , args={}} = {} ) => {
     const validationError = scheme.validate( args , {abortEarly: false});
     if(validationError.error){
         throw new Error(JSON.stringify({
-        message:"Validation Error in the check input" ,
-        details: validationError.error.details[0].message
+            message:"Validation Error in the check input" ,
+            details: validationError.error.details[0].message
         }));
     }
 

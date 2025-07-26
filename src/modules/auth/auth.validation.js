@@ -1,4 +1,6 @@
+// Joi
 import joi from 'joi';
+// GeneralFields - validation
 import { generalFields } from '../../middleware/validation.middleware.js';
 
 
@@ -50,7 +52,6 @@ export const forgotPasswordValidationSchema = joi.object().keys({
 export const resetPasswordOTPValidationSchema = joi.object().keys({
     email: generalFields.email.required(),
     code: generalFields.code.required(),
-    // code: joi.string().pattern(new RegExp(/^\d{6}$/)).required(),
     password: generalFields.password.required(),
     confirmPassword: generalFields.confirmPassword.valid(joi.ref('password')).required(),
 }).options({allowUnknown: false}).required()

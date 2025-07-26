@@ -1,9 +1,14 @@
+// DB
 import * as dbService from '../../../DB/db.service.js';
 import { userModel } from '../../../DB/model/User.model.js';
+// Utils
 import { errorAsyncHandler } from '../../../utils/response/error.response.js';
 import { successResponse } from '../../../utils/response/success.response.js';
+// Security hash
 import { compareHash, generateHash } from '../../../utils/security/hash.security.js';
+// Security email event 
 import { emailEvent } from '../../../utils/events/sendEmailEvent.js';
+// Middleware time code otp (email / forgot password / update email)
 import { timeCodeOTP } from '../../../middleware/timeCode.middleware.js';
 
 
@@ -39,7 +44,6 @@ export const resetPasswordOTP = errorAsyncHandler(
     async (req, res, next) => {
         const { email, code, password, confirmPassword } = req.body;
         
-        // const user = await userModel.findOne({ email });
         const user = await dbService.findOne({
             model: userModel,
             filter: {
