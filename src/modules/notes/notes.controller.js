@@ -47,14 +47,14 @@ router.delete('/delete-note/:id',
 
 router.delete('/freeze-note/:NoteId', 
     authentication(), authorization(endPoint.freezeNote), 
-    validation(validators.deleteNoteValidation) , 
+    validation(validators.freezeNoteValidation) , 
     notesService.freezeNotes
 );
 
 
 router.patch('/restore-note/:NoteId' , 
     authentication() , authorization(endPoint.freezeNote) , 
-    validation(validators.deleteNoteValidation) ,
+    validation(validators.freezeNoteValidation) ,
     notesService.restoreNotes
 );
 
