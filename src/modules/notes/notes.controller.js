@@ -18,8 +18,8 @@ import { fileValidationTypes } from './../../utils/multer/local.multer.js';
 const router = Router();
 
 router.post('/:id/summarize', 
-    authentication(), 
-    authorization(endPoint.profile),
+    authentication(), authorization(endPoint.profile),
+    validation(validators.deleteNoteValidation) ,
     summaryNotesService.summarizeNote
 );
 

@@ -27,9 +27,15 @@ const url = '/api/v1'
 
 
 const limiter = rateLimit({
-    limit: 10,
-    windowMs: 3 * 60 * 1000,
-    max: 50 // 50 طلب لكل IP
+    // limit: 10,
+    windowMs:  3 * 60 * 1000,
+    max: 100,                 // 100 طلب لكل IP
+    standardHeaders: true,    // إرجاع معلومات Rate Limit في الرأس
+    legacyHeaders: false,     // تعطيل رؤوس X-RateLimit-*
+    message: {
+        status: 429,
+        message: 'Too many requests, please try again later.'
+    }
 });
 
 
