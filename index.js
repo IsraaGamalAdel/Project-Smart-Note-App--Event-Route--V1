@@ -16,7 +16,7 @@ const port = process.env.PORT || 5000 ;
 
 
 bootstrap(app , express);
-// deleteExpiredOTPs();
+deleteExpiredOTPs();
 
 
 
