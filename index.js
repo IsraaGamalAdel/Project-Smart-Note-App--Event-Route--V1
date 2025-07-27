@@ -19,7 +19,7 @@ bootstrap(app , express);
 // deleteExpiredOTPs();
 
 
-// app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
 app.listen(port, () => {
     console.log(chalk.bgBlue(`Example app listening on PORT ${port}!`))
 });

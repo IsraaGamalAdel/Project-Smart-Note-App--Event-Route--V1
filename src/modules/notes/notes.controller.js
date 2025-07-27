@@ -6,6 +6,7 @@ import * as validators from './notes.validation.js';
 import { authentication, authorization, roleTypes } from "../../middleware/auth.middleware.js";
 // service
 import * as notesService from './service/notes.service.js';
+import * as summaryNotesService from './service/summarizeNotesGemini/summaryNotes.service.js';
 // EndPoint
 import { endPoint } from "./notes.endpoint.js";
 // Multer
@@ -13,8 +14,14 @@ import { uploadCloudinaryFile } from './../../utils/multer/cloudinary.multer.js'
 import { fileValidationTypes } from './../../utils/multer/local.multer.js';
 
 
+
 const router = Router();
 
+router.post('/:id/summarize', 
+    authentication(), 
+    authorization(endPoint.profile),
+    summaryNotesService.summarizeNote
+);
 
 router.post('/create-note', 
     authentication(), authorization(endPoint.profile), 

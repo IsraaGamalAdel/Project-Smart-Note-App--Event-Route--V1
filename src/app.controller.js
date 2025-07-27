@@ -29,6 +29,7 @@ const url = '/api/v1'
 const limiter = rateLimit({
     limit: 10,
     windowMs: 3 * 60 * 1000,
+    max: 50 // 50 طلب لكل IP
 });
 
 

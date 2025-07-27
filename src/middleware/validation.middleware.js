@@ -46,7 +46,7 @@ export const generalFields = {
     address: joi.string().pattern(new RegExp(/^[a-zA-Z\u0621-\u064Aء-ئ0-9][^#&<>\"~;$^%{}?]{2,100}$/)),
     // description deleted one
     description: joi.string().min(2).max(1000).trim(),
-    content: joi.string().min(2).max(2000).trim(),
+    content: joi.string().min(2).max(20000).trim(),
     title: joi.string().min(2).max(50).trim(),
 }; 
 

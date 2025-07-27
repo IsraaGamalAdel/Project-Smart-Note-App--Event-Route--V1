@@ -1,6 +1,6 @@
 //DB
 import * as dbService from '../../../DB/db.service.js';
-import { notesModel } from '../../../DB/model/notes.model.js';
+import { notesModel } from '../../../DB/model/Note.model.js';
 import { roleTypes } from '../../../middleware/auth.middleware.js';
 //utils
 import { errorAsyncHandler } from '../../../utils/response/error.response.js';

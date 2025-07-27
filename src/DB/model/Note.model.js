@@ -7,7 +7,6 @@ const notesSchema =  new Schema({
         type: String,
         required: true,
         trim: true,
-        index: true
     },
     content :{     
         type: String,
@@ -15,32 +14,35 @@ const notesSchema =  new Schema({
         required: function () {
             return this?.attachments?.length ? false : true;
         },
-        minlength: [2 , `Content must be at least 2 characters`],
+        minlength: [2 , `userName minimum  2 characters`],
         maxlength: 20000,
     },
+
     // attachments
     attachments:[{secure_url: String , public_id: String}],
-
     //by user
     userId: {type: Types.ObjectId , ref: "User" , required: true},
     deletedBy: {type: Types.ObjectId , ref: "User" },
     createdAt: {type: Date , default: Date.now},
 
-    deleted: Date ,
+    // summary
+    summary: String, 
+    previousSummaries: [{
+        summary: String,
+        createdAt: { type: Date, default: Date.now }
+    }],
+    lastSummarizedAt: { type: Date, default: Date.now },
 
-} , { 
-    timestamps: true ,
+    //delete
+    deleted: Date ,
+    
+},{
+    timestamps:true ,
     toObject: {virtuals: true},
     toJSON: {virtuals: true}
 });
 
-// Virtual for owner information
-// notesSchema.virtual('owner', {
-//     ref: 'User',
-//     localField: 'userId',
-//     foreignField: '_id',
-//     justOne: true
-// });
-
 
 export const notesModel = mongoose.models.Note || model("Note" , notesSchema);
+
+

@@ -14,7 +14,6 @@ const sentCode = async ({data , subject = subjectTypes.confirmEmail} = {}) => {
     const {id ,email , password} = data;
     
     const otp = customAlphabet('1234567890' , 6)();
-    console.log("Generated OTP:", otp);
 
     const html = verifyEmailTemplate({code: otp , email , password})
     const hash = generateHash({plainText: otp });
