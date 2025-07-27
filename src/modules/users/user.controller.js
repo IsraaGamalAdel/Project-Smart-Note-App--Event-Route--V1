@@ -1,9 +1,15 @@
+// controller Router
 import { Router } from "express";
+// Service
 import * as userService from './service/user.service.js'
+// Middleware
 import { authentication, authorization, roleTypes } from "../../middleware/auth.middleware.js";
+// EndPoint
 import { endPoint } from "./user.endpoint.js";
+//validation
 import { validation } from "../../middleware/validation.middleware.js";
 import * as validators from './user.validation.js';
+// Multer
 import { fileValidationTypes, uploadDiskFile } from "../../utils/multer/local.multer.js";
 import { uploadCloudinaryFile } from "../../utils/multer/cloudinary.multer.js";
 
@@ -33,8 +39,16 @@ router.patch('/profile/password',
 );
 
 // Email
-router.patch('/profile/email' , validation(validators.updateEmailValidation) ,authentication() , userService.UpdateEmail);
-router.patch('/profile/replace-email' , validation(validators.replaceEmailValidation) ,authentication() , userService.replaceEmail);
+router.patch('/profile/email' , 
+    validation(validators.updateEmailValidation) ,
+    authentication() , 
+    userService.UpdateEmail
+);
+router.patch('/profile/replace-email' , 
+    validation(validators.replaceEmailValidation) ,
+    authentication() , 
+    userService.replaceEmail
+);
 
 // Images
 router.patch('/profile/image', 
@@ -62,6 +76,7 @@ router.delete('/profile/delete_images/cover' ,
     userService.deleteCoverImages
 );
 
+// Identity images local
 router.patch('/upload-profile-pic',authentication() , 
     uploadDiskFile("users/profile/identity" , 
         [...fileValidationTypes.image , ...fileValidationTypes.document], 

@@ -125,8 +125,7 @@ const userSchema =  new Schema({
 
     blockedUsers: [{type:Types.ObjectId , ref: "User"}],
     updatedBy: {type:Types.ObjectId , ref: "User"},
-    // modifiedBy: {type:Types.ObjectId , ref: "User"},
-    // blockedUsers: [{type:Types.ObjectId , ref: "User"}],
+    
 },{
     timestamps: true,
     toObject:{ virtuals: true},
@@ -173,6 +172,3 @@ userSchema.methods.getDecryptedMobile = function () {
 
 
 export const userModel = mongoose.models.User || model("User" , userSchema);
-
-
-// export const socketConnection = new Map();

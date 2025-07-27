@@ -1,10 +1,16 @@
+// DB
+import * as dbService from '../../../DB/db.service.js';
 import {providerTypes, userModel} from "../../../DB/model/User.model.js";
+// Middleware
 import { roleTypes } from '../../../middleware/auth.middleware.js';
+// Utils
 import { errorAsyncHandler } from "../../../utils/response/error.response.js";
 import { successResponse } from '../../../utils/response/success.response.js';
-import {  decodeToken, generateToken2, tokenTypes } from "../../../utils/token/token.js";
+// Token
+import {  decodeToken, generateToken, tokenTypes } from "../../../utils/token/token.js";
+// Security hash
 import { compareHash } from "../../../utils/security/hash.security.js";
-import * as dbService from '../../../DB/db.service.js';
+// Security google auth
 import {OAuth2Client} from 'google-auth-library' ;
 
 
@@ -51,7 +57,7 @@ export const signIn = errorAsyncHandler(
             return next(new Error("In-valid provider type", { cause: 400 }));        
         }
 
-        const accessToken = generateToken2({
+        const accessToken = generateToken({
             payload: { id: user._id, isLoggedIn: true },
             signature:
                 user.role === roleTypes.Admin
@@ -60,7 +66,7 @@ export const signIn = errorAsyncHandler(
             options: { expiresIn: "1h" },
         });
 
-        const refreshToken = generateToken2({
+        const refreshToken = generateToken({
             payload: { id: user._id, isLoggedIn: true },
             signature:
                 user.role === roleTypes.Admin
@@ -129,11 +135,11 @@ export const login = errorAsyncHandler(
         user.changeCredentialsTime = Date.now();
         await user.save();
 
-        const accessToken = generateToken2({
+        const accessToken = generateToken({
             payload: {id:user._id , isLoggedIn :true},
             signature: user.role ===  roleTypes.Admin ? process.env.SYSTEM_ACCESS_TOKEN : process.env.USER_ACCESS_TOKEN 
         })
-        const refreshToken = generateToken2({
+        const refreshToken = generateToken({
             payload: {id:user._id , isLoggedIn :true},
             signature: user.role === roleTypes.Admin ? process.env.SYSTEM_REFRESH_TOKEN : process.env.USER_REFRESH_TOKEN ,
             options: {expiresIn: process.env.SYSTEM_EXPIREINTOKEN}
@@ -160,11 +166,11 @@ export const refreshToken = errorAsyncHandler(
         
         const user = await decodeToken({authorization: req.headers.authorization , tokenType: tokenTypes.refresh , next})
 
-        const accessToken = generateToken2({
+        const accessToken = generateToken({
             payload: {id:user._id , isLoggedIn :true},
             signature: user.role ===  roleTypes.Admin ? process.env.SYSTEM_ACCESS_TOKEN : process.env.USER_ACCESS_TOKEN 
         })
-        const refreshToken = generateToken2({
+        const refreshToken = generateToken({
             payload: {id:user._id , isLoggedIn :true},
             signature: user.role === roleTypes.Admin ? process.env.SYSTEM_REFRESH_TOKEN : process.env.USER_REFRESH_TOKEN ,
             options: {expiresIn: process.env.SYSTEM_EXPIREINTOKEN}

@@ -1,13 +1,22 @@
+// DB
+import * as dbService from "../../../DB/db.service.js";
 import {userModel} from "../../../DB/model/User.model.js";
+// Utils
 import { errorAsyncHandler } from "../../../utils/response/error.response.js";
 import { successResponse } from "../../../utils/response/success.response.js";
+// Security phone
 import { decodeEncryption, generateEncryption } from "../../../utils/security/encryption.security.js";
+// Security hash
 import { compareHash, generateHash } from "../../../utils/security/hash.security.js";
-import * as dbService from "../../../DB/db.service.js";
+// Security email event
 import { emailEvent } from './../../../utils/events/sendEmailEvent.js';
+// multer cloudinary
 import cloudinary from './../../../utils/multer/cloudinary.js';
+// Middleware time code otp (email / forgot password / update email)
 import { timeCodeOTP } from './../../../middleware/timeCode.middleware.js';
+// fs
 import fs  from 'node:fs';
+
 
 
 // Profile

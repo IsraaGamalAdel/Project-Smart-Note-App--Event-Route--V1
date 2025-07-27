@@ -1,5 +1,7 @@
+// Utils
 import { errorAsyncHandler } from "../utils/response/error.response.js";
 import { decodeToken } from '../utils/token/token.js';
+
 
 export const roleTypes = {
     User : "User" , 
@@ -9,24 +11,12 @@ export const roleTypes = {
 };
 
 
-// export const authentication = () => {
-//     return errorAsyncHandler(
-//         async (req , res , next) => {
-//             req.user = await decodeToken ({authorization: req.headers.authorization , next });  
-//             return next();
-//         }
-//     )
-// };
-
-
-
 export const authentication = () => {
     return errorAsyncHandler(
         async (req, res, next) => {
             req.user = await decodeToken({
                 authorization: req.headers.authorization,
                 next,
-                // originalUrl: req.originalUrl,
             });
             return next();
         }

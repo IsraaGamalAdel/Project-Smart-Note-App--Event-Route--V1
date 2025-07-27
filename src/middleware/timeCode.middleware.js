@@ -1,4 +1,6 @@
+// Utils
 import { compareHash } from "../utils/security/hash.security.js";
+// DB
 import { userModel } from './../DB/model/User.model.js';
 import * as dbService from '../DB/db.service.js';
 
